@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <form v-on:submit.prevent="searchRepos(query)">
-      <input type="search" v-model="query" placeholder="Search repos" name />
+      <input type="search" v-model="query" placeholder="Search repos" />
       <button type="submit">Search</button>
     </form>
   </div>
@@ -23,7 +23,7 @@ export default {
       const url = `https://api.github.com/search/repositories?q=${tail}`;
       const fetchData = fetch(url).then(response => response.json());
       const responseRepositories = await fetchData;
-      console.log(responseRepositories);
+      this.$emit('submitted', responseRepositories);
     }
   }
 };
