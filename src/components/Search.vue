@@ -18,12 +18,15 @@ export default {
   },
   methods: {
     async searchRepos(query) {
-      const formattedQuery = query.split(/[ ,]+/).join(','); // Commas are used to separate values in query
-      const tail = `${formattedQuery}+in:name,description&type=Repositories`;
-      const url = `https://api.github.com/search/repositories?q=${tail}`;
-      const fetchData = fetch(url).then(response => response.json());
-      const responseRepositories = await fetchData;
-      this.$emit('submitted', responseRepositories);
+      if (query) {
+        const formattedQuery = query.split(/[ ,]+/).join(','); // Commas are used to separate values in query
+        const tail = `${formattedQuery}+in:name,description&type=Repositories`;
+        const url = `https://api.github.com/search/repositories?q=${tail}`;
+        const fetchData = fetch(url).then(response => response.json());
+        const responseRepositories = await fetchData;
+        console.log(responseRepositories);
+        this.$emit('submitted', responseRepositories);
+      }
     }
   }
 };

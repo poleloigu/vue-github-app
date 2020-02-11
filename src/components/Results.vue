@@ -23,4 +23,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.results {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+</style>

@@ -1,6 +1,9 @@
 <template>
   <div class="results__item">
+    <h2 className="heading heading--result">{{ item.name }}</h2>
     <p>{{ item.name }}</p>
+    <p>Stars: {{ item.stargazers_count }}</p>
+    <p>Forks: {{ item.forks_count }}</p>
   </div>
 </template>
 
@@ -13,4 +16,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.results__item {
+  border: 1px solid black;
+}
+</style>
