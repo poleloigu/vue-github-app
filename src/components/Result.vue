@@ -17,6 +17,8 @@
     >
       Bookmark
     </button>
+    <img v-if="isBookmarked" class="icon icon--bookmark" src="../assets/bookmarkTrue.svg" />
+    <img v-else class="icon icon--bookmark" src="../assets/bookmarkFalse.svg" />
   </div>
 </template>
 
@@ -28,10 +30,15 @@ export default {
   props: {
     item: Object
   },
+  data() {
+    return {
+      isBookmarked: false
+    };
+  },
   methods: {
     bookmarkResult(result) {
       store.commit('addBookmark', result);
-      console.log('clicked');
+      this.isBookmarked = !this.isBookmarked;
     }
   }
 };
@@ -43,5 +50,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.icon {
+  &--bookmark {
+    height: 15px;
+    width: auto;
+  }
 }
 </style>

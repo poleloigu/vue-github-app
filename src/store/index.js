@@ -9,16 +9,17 @@ export default new Vuex.Store({
   },
   mutations: {
     addBookmark(state, data) {
-      console.log('addBookmark');
       const { name, href, fullName } = data;
-      // eslint-disable-next-line prefer-object-spread
-      state.bookmarks = Object.assign({}, state.bookmarks, {
-        bookmarks: {
-          [fullName]: { name, href }
-        }
-      });
-      console.log(state.bookmarks);
+      const { bookmarks } = state;
+      if (fullName in state.bookmarks) {
+        delete state.bookmarks[fullName];
+      } else {
+        state.bookmarks = { ...bookmarks, [fullName]: { name, href } };
+      }
     }
+  },
+  getters: {
+    getBookmarks: state => state.bookmarks
   },
   actions: {},
   modules: {}

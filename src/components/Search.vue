@@ -12,8 +12,8 @@ export default {
   name: 'Search',
   data() {
     return {
-      // query: 'vk-projekt'  // Used for testing purposes
-      query: ''
+      query: 'vk-projekt' // Used for testing purposes
+      // query: ''
     };
   },
   methods: {
