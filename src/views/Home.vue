@@ -1,18 +1,30 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Search @submitted="onSearch" />
+    <Results :results="repositories" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import Search from '@/components/Search.vue';
+import Results from '@/components/Results.vue';
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
+    Search,
+    Results
   },
+  data() {
+    return {
+      repositories: {}
+    };
+  },
+  methods: {
+    onSearch(value) {
+      this.repositories = value;
+    }
+  }
 };
 </script>

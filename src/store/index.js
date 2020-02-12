@@ -5,11 +5,22 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    bookmarks: {}
   },
   mutations: {
+    addBookmark(state, data) {
+      const { name, href, fullName } = data;
+      const { bookmarks } = state;
+      if (fullName in state.bookmarks) {
+        delete state.bookmarks[fullName];
+      } else {
+        state.bookmarks = { ...bookmarks, [fullName]: { name, href } };
+      }
+    }
   },
-  actions: {
+  getters: {
+    getBookmarks: state => state.bookmarks
   },
-  modules: {
-  },
+  actions: {},
+  modules: {}
 });
