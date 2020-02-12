@@ -4,6 +4,7 @@
     <p>{{ item.name }}</p>
     <p>Stars: {{ item.stargazers_count }}</p>
     <p>Forks: {{ item.forks_count }}</p>
+    <a target="_blank" :href="item.html_url">Link</a>
   </div>
 </template>
 
