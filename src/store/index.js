@@ -8,7 +8,7 @@ export default new Vuex.Store({
     bookmarks: {}
   },
   mutations: {
-    addBookmark(state, data) {
+    toggleBookmark(state, data) {
       const { name, href, fullName } = data;
       const { bookmarks } = state;
       if (fullName in state.bookmarks) {

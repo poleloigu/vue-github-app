@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     bookmarkResult(result) {
-      store.commit('addBookmark', result);
+      store.commit('toggleBookmark', result);
       this.$set(this, 'isBookmarked', !this.isBookmarked);
     }
   }
