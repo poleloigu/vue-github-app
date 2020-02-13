@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <h1>Search</h1>
     <Search @submitted="onSearch" />
     <Results :results="repositories" />
   </div>
@@ -23,7 +24,7 @@ export default {
   },
   methods: {
     onSearch(value) {
-      this.repositories = value;
+      this.$set(this, 'repositories', value);
     }
   }
 };
