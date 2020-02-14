@@ -3,6 +3,7 @@
     <div id="nav">
       <router-link to="/">Search</router-link>|
       <router-link to="/bookmarks">Bookmarks</router-link>
+      <Badge />
     </div>
     <keep-alive>
       <router-view />
@@ -12,10 +13,13 @@
 
 <script>
 import store from './store';
+import Badge from './components/Badge.vue';
 
 export default {
   name: 'App',
-
+  components: {
+    Badge
+  },
   methods: {
     getStorageData() {
       if (localStorage) {
