@@ -5,16 +5,24 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    bookmarks: {}
+    bookmarks: []
   },
   mutations: {
     toggleBookmark(state, data) {
-      const { name, href, fullName } = data;
-      const { bookmarks } = state;
-      if (fullName in state.bookmarks) {
-        delete state.bookmarks[fullName];
+      // eslint-disable-next-line object-curly-newline
+      const { name, href, fullName, stars, forks, id } = data;
+      const index = state.bookmarks.findIndex(item => item.fullName === fullName);
+      if (index === -1) {
+        state.bookmarks.push({
+          name,
+          href,
+          fullName,
+          stars,
+          forks,
+          id
+        });
       } else {
-        state.bookmarks = { ...bookmarks, [fullName]: { name, href } };
+        state.bookmarks.splice(index, 1);
       }
     }
   },

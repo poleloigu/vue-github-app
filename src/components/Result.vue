@@ -1,7 +1,7 @@
 <template>
   <div class="results__item">
     <h2 className="heading heading--result">{{ item.name }}</h2>
-    <p>{{ item.name }}</p>
+    <p>{{ item.author }}</p>
     <p>Stars: {{ item.stars }}</p>
     <p>Forks: {{ item.forks }}</p>
     <a target="_blank" :href="item.href">Link</a>
@@ -9,8 +9,8 @@
       v-on:click="
         bookmarkResult({
           name: item.name,
-          href: item.html_url,
-          fullName: item.full_name
+          href: item.href,
+          fullName: item.fullName
         })
       "
       type="button"
@@ -35,14 +35,32 @@ export default {
       isBookmarked: false
     };
   },
+  watch: {
+    item: {
+      immediate: true,
+      handler(value) {
+        this.checkIfBookmarked(value);
+      }
+    }
+  },
   methods: {
     bookmarkResult(result) {
       store.commit('toggleBookmark', result);
       this.$set(this, 'isBookmarked', !this.isBookmarked);
     },
-    created() {
-      console.log(this.item);
+    checkIfBookmarked(result) {
+      const data = store.getters.getBookmarks;
+      const { fullName } = result;
+      const foundItem = data.find(item => item.fullName === fullName);
+      if (foundItem) {
+        this.$set(this, 'isBookmarked', true);
+      } else {
+        this.$set(this, 'isBookmarked', false);
+      }
     }
+  },
+  activated() {
+    this.checkIfBookmarked(this.item);
   }
 };
 </script>

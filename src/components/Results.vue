@@ -18,10 +18,7 @@ export default {
     Result
   },
   props: {
-    results: Object
-  },
-  created() {
-    console.log(this.results);
+    results: Array
   }
 };
 </script>

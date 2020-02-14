@@ -25,33 +25,13 @@ export default {
     };
   },
   methods: {
-    getBookmarks() {}
-  },
-  watch: {
-    bookmarks(val) {
-      console.log('changed');
-      console.log(val);
+    updateResults() {
+      const data = store.getters.getBookmarks;
+      this.$set(this, 'bookmarks', data);
     }
   },
-  created() {
-    console.log('created');
-  },
-  updated() {
-    console.log('updated');
-  },
-  mounted() {
-    console.log('mounted');
-  },
   activated() {
-    console.log('activated');
-    const data = store.getters.getBookmarks;
-    console.log(data);
-    this.$set(this, 'bookmarks', data);
-    // this.bookmarks = data;
-    this.$forceUpdate();
-  },
-  deactivated() {
-    console.log('deactivated');
+    this.updateResults();
   }
 };
 </script>
