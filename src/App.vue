@@ -10,6 +10,26 @@
   </div>
 </template>
 
+<script>
+import store from './store';
+
+export default {
+  name: 'App',
+
+  methods: {
+    getStorageData() {
+      if (localStorage) {
+        const data = localStorage.getItem('bookmarked');
+        const parsedData = JSON.parse(data);
+        store.commit('addAllBookmarks', parsedData);
+      }
+    }
+  },
+  mounted() {
+    this.getStorageData();
+  }
+};
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

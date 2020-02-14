@@ -24,6 +24,10 @@ export default new Vuex.Store({
       } else {
         state.bookmarks.splice(index, 1);
       }
+      localStorage.setItem('bookmarked', JSON.stringify(state.bookmarks));
+    },
+    addAllBookmarks(state, data) {
+      state.bookmarks = data;
     }
   },
   getters: {
