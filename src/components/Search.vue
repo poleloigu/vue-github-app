@@ -24,9 +24,22 @@ export default {
         const url = `https://api.github.com/search/repositories?q=${tail}`;
         const fetchData = fetch(url).then(response => response.json());
         const responseRepositories = await fetchData;
-        console.log(responseRepositories);
-        this.$emit('submitted', responseRepositories);
+        const transformedData = this.transformData(responseRepositories);
+        this.$emit('submitted', transformedData);
       }
+    },
+    transformData(data) {
+      const { items } = data;
+      const transformedData = items.map(item => ({
+        name: item.name,
+        author: item.owner.login,
+        fullName: item.full_name,
+        href: item.html_url,
+        stars: item.stargazers_count,
+        forks: item.forks_count,
+        id: item.id
+      }));
+      return transformedData;
     }
   }
 };

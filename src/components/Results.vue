@@ -1,7 +1,7 @@
 <template>
   <div class="results">
     <Result
-      v-for="(item, index) in results.items"
+      v-for="(item, index) in results"
       v-bind:item="item"
       v-bind:index="index"
       v-bind:key="item.id"
@@ -18,7 +18,7 @@ export default {
     Result
   },
   props: {
-    results: Object
+    results: Array
   }
 };
 </script>
