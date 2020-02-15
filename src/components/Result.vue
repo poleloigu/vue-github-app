@@ -5,12 +5,16 @@
     <p>Stars: {{ item.stars }}</p>
     <p>Forks: {{ item.forks }}</p>
     <a target="_blank" :href="item.href">Link</a>
+    <a :href="`/bookmarks/${item.author}/${item.name}`">Link to details </a>
     <button
       v-on:click="
         bookmarkResult({
           name: item.name,
           href: item.href,
-          fullName: item.fullName
+          fullName: item.fullName,
+          stars: item.stars,
+          forks: item.forks,
+          id: item.id
         })
       "
       type="button"
@@ -49,7 +53,7 @@ export default {
       this.$set(this, 'isBookmarked', !this.isBookmarked);
     },
     checkIfBookmarked(result) {
-      const data = store.getters.getBookmarks;
+      const data = store.getters.getBookmarks || [];
       const { fullName } = result;
       const foundItem = data.find(item => item.fullName === fullName);
       if (foundItem) {
