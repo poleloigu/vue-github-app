@@ -40,13 +40,15 @@ export default {
       const url = `https://api.github.com/${tail}`;
       const fetchReadme = fetch(url).then(response => response.json());
       const readme = await fetchReadme;
-      console.log(readme);
       const decodedReadme = atob(readme.content);
       const readmeSnippet = this.makeReadmeSnippet(decodedReadme);
       this.$set(this, 'readme', readmeSnippet);
     },
     makeReadmeSnippet(readme) {
-      const readmeSnippet = /##([^;]+)##/.exec(readme)[1].replace(/(<([^>]+)>)/gi, '');
+      const readmeSnippet = readme
+        .replace(/(<([^>]+)>)/gi, '')
+        .substring(0, 256)
+        .concat('...');
       return readmeSnippet;
     }
   },
