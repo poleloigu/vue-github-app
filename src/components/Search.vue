@@ -12,14 +12,13 @@ export default {
   name: 'Search',
   data() {
     return {
-      query: 'vk-projekt' // Used for testing purposes
-      // query: ''
+      query: ''
     };
   },
   methods: {
     async searchRepos(query) {
       if (query) {
-        const formattedQuery = query.split(/[ ,]+/).join(','); // Commas are used to separate values in query
+        const formattedQuery = query.split(/[ ,]+/).join(',');
         const tail = `${formattedQuery}+in:name,description&type=Repositories`;
         const url = `https://api.github.com/search/repositories?q=${tail}`;
         const fetchData = fetch(url).then(response => response.json());
