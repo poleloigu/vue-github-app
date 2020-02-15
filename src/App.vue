@@ -24,8 +24,10 @@ export default {
     getStorageData() {
       if (localStorage) {
         const data = localStorage.getItem('bookmarked');
-        const parsedData = JSON.parse(data);
-        store.commit('addAllBookmarks', parsedData);
+        if (data) {
+          const parsedData = JSON.parse(data);
+          store.commit('addAllBookmarks', parsedData);
+        }
       }
     }
   },

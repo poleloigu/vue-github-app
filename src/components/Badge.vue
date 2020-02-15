@@ -12,8 +12,10 @@ export default {
   name: 'Badge',
   computed: {
     badgeAmount() {
-      console.log(store);
-      return store.state.bookmarks.length;
+      if (store.state.bookmarks) {
+        return store.state.bookmarks.length;
+      }
+      return 0;
     }
   }
 };
