@@ -18,7 +18,8 @@ export default {
   components: {},
   data() {
     return {
-      singleResult: {}
+      singleResult: {},
+      readme: {}
     };
   },
   props: {
@@ -27,18 +28,27 @@ export default {
   },
 
   methods: {
-    async getItemData() {
-      const { author, name } = this.$route.params;
+    async getItemData(author, name) {
       const tail = `repo:${author}/${name}`;
       const url = `https://api.github.com/search/repositories?q=${tail}`;
       const fetchData = fetch(url).then(response => response.json());
       const singleResult = await fetchData;
       const transformedResult = singleResult.items[0];
       this.$set(this, 'singleResult', transformedResult);
+    },
+    async getItemReadme(author, name) {
+      const tail = `repos/${author}/${name}/readme`;
+      const url = `https://api.github.com/${tail}`;
+      const fetchReadme = fetch(url).then(response => response.json());
+      const readme = await fetchReadme;
+      const decodedReadme = atob(readme.content);
+      this.$set(this, 'readme', decodedReadme);
     }
   },
   mounted() {
-    this.getItemData();
+    const { author, name } = this.$route.params;
+    this.getItemData(author, name);
+    this.getItemReadme(author, name);
   }
 };
 </script>
