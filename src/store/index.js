@@ -10,12 +10,13 @@ export default new Vuex.Store({
   mutations: {
     toggleBookmark(state, data) {
       // eslint-disable-next-line object-curly-newline
-      const { name, href, fullName, stars, forks, id } = data;
+      const { name, href, author, fullName, stars, forks, id } = data;
       const index = state.bookmarks.findIndex(item => item.fullName === fullName);
       if (index === -1) {
         state.bookmarks.push({
           name,
           href,
+          author,
           fullName,
           stars,
           forks,
@@ -24,6 +25,10 @@ export default new Vuex.Store({
       } else {
         state.bookmarks.splice(index, 1);
       }
+      localStorage.setItem('bookmarked', JSON.stringify(state.bookmarks));
+    },
+    addAllBookmarks(state, data) {
+      state.bookmarks = data;
     }
   },
   getters: {

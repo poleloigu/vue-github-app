@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+import Bookmarks from '../views/Bookmarks.vue';
+import BookmarkItem from '../views/BookmarkItem.vue';
 
 Vue.use(VueRouter);
 
@@ -13,10 +15,13 @@ const routes = [
   {
     path: '/bookmarks',
     name: 'Bookmarks',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/Bookmarks.vue')
+    component: Bookmarks
+  },
+  {
+    path: '/bookmarks/:author/:name',
+    name: 'BookmarkItem',
+    props: true,
+    component: BookmarkItem
   }
 ];
 
