@@ -1,13 +1,41 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Search</router-link>|
+      <router-link to="/bookmarks">Bookmarks</router-link>
+      <Badge />
     </div>
-    <router-view/>
+    <keep-alive>
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 
+<script>
+import store from './store';
+import Badge from './components/Badge.vue';
+
+export default {
+  name: 'App',
+  components: {
+    Badge
+  },
+  methods: {
+    getStorageData() {
+      if (localStorage) {
+        const data = localStorage.getItem('bookmarked');
+        if (data) {
+          const parsedData = JSON.parse(data);
+          store.commit('addAllBookmarks', parsedData);
+        }
+      }
+    }
+  },
+  mounted() {
+    this.getStorageData();
+  }
+};
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
