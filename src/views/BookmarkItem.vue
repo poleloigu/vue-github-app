@@ -7,19 +7,18 @@
     <p>Forks: {{ singleResult.forks }}</p>
     <p>Language: {{ singleResult.language }}</p>
     <p>Open issues: {{ singleResult.open_issues_count }}</p>
+    {{ readme }}
   </div>
 </template>
 
 <script>
-// import store from '../store';
-
 export default {
   name: 'BookmarkItem',
   components: {},
   data() {
     return {
       singleResult: {},
-      readme: {}
+      readme: ''
     };
   },
   props: {
@@ -41,8 +40,22 @@ export default {
       const url = `https://api.github.com/${tail}`;
       const fetchReadme = fetch(url).then(response => response.json());
       const readme = await fetchReadme;
+      console.log(readme);
       const decodedReadme = atob(readme.content);
-      this.$set(this, 'readme', decodedReadme);
+      const readmeSnippet = this.makeReadmeSnippet(decodedReadme);
+      this.$set(this, 'readme', readmeSnippet);
+    },
+    makeReadmeSnippet(readme) {
+      const readmeSnippet = /##([^;]+)##/.exec(readme)[1].replace(/(<([^>]+)>)/gi, '');
+      return readmeSnippet;
+    }
+  },
+  filters: {
+    stripHTML(value) {
+      const div = document.createElement('div');
+      div.innerHTML = value;
+      const text = div.textContent || div.innerText || '';
+      return text;
     }
   },
   mounted() {
